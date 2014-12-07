@@ -1,0 +1,29 @@
+/modem		vfat		/dev/block/platform/msm_sdcc.1/by-name/modem
+/sbl1		emmc		/dev/block/platform/msm_sdcc.1/by-name/sbl1
+/sbl2		emmc		/dev/block/platform/msm_sdcc.1/by-name/sbl2
+/sbl3		emmc		/dev/block/platform/msm_sdcc.1/by-name/sbl3
+/aboot		emmc		/dev/block/platform/msm_sdcc.1/by-name/aboot
+/rpm		emmc		/dev/block/platform/msm_sdcc.1/by-name/rpm
+/boot		emmc		/dev/block/platform/msm_sdcc.1/by-name/boot
+/tz		emmc		/dev/block/platform/msm_sdcc.1/by-name/tz
+/pad		emmc		/dev/block/platform/msm_sdcc.1/by-name/pad
+/modemst1		emmc		/dev/block/platform/msm_sdcc.1/by-name/modemst1
+/modemst2		emmc		/dev/block/platform/msm_sdcc.1/by-name/modemst2
+/rawdata		emmc		/dev/block/platform/msm_sdcc.1/by-name/rawdata
+/preload		emmc		/dev/block/platform/msm_sdcc.1/by-name/preload
+/system		ext4		/dev/block/platform/msm_sdcc.1/by-name/system
+/persist		emmc		/dev/block/platform/msm_sdcc.1/by-name/persist
+/cache		ext4		/dev/block/platform/msm_sdcc.1/by-name/cache
+/tombstones		ext4		/dev/block/platform/msm_sdcc.1/by-name/tombstones
+/misc		emmc		/dev/block/platform/msm_sdcc.1/by-name/misc
+/recovery		emmc		/dev/block/platform/msm_sdcc.1/by-name/recovery
+/m9kefs1		emmc		/dev/block/platform/msm_sdcc.1/by-name/m9kefs1
+/m9kefs2		emmc		/dev/block/platform/msm_sdcc.1/by-name/m9kefs2
+/m9kefs3		emmc		/dev/block/platform/msm_sdcc.1/by-name/m9kefs3
+/DDR		emmc		/dev/block/platform/msm_sdcc.1/by-name/DDR
+/log		emmc		/dev/block/platform/msm_sdcc.1/by-name/log
+/fota		emmc		/dev/block/platform/msm_sdcc.1/by-name/fota
+/data		ext4		/dev/block/platform/msm_sdcc.1/by-name/userdata
+/external_sd		vfat		/dev/block/mmcblk1p1
+/usb-otg    vfat		/dev/block/sda1		/dev/block/sda
+
