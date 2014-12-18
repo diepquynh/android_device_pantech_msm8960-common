@@ -71,8 +71,6 @@ TARGET_USES_SF_BYPASS := true
 TARGET_USES_C2D_COMPOSITION := false
 HWUI_COMPILE_FOR_PERF := true
 
-TARGET_USES_LOGD := false
-BOARD_USES_LEGACY_MMAP := true
 
 # Vibrator
 BOARD_HAS_VIBRATOR_IMPLEMENTATION := ../../device/pantech/ef52l/vibrator/vibrator.c
