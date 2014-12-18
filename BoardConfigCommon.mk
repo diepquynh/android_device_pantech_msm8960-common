@@ -71,8 +71,6 @@ TARGET_USES_SF_BYPASS := true
 TARGET_USES_C2D_COMPOSITION := false
 
 
-# Vibrator
-BOARD_HAS_VIBRATOR_IMPLEMENTATION := ../../device/pantech/ef52l/vibrator/vibrator.c
 
 # Vold
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/msm_hsusb/gadget/lun0/file"
