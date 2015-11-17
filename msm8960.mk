@@ -146,7 +146,8 @@ PRODUCT_PACKAGES += \
 
 # Shims
 PRODUCT_PACKAGES += \
-	libqc-opt_shim
+	libqc-opt_shim \
+	libcamera_shim
 
 # IRSC
 PRODUCT_PACKAGES += \
