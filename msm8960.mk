@@ -144,6 +144,10 @@ PRODUCT_PACKAGES += \
 	VegaDoze \
 	libstlport
 
+# Shims
+PRODUCT_PACKAGES += \
+	libqc-opt_shim
+
 # Prebuilt kl and kcm keymaps
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/keylayout/hs_detect.kl:system/usr/keylayout/hs_detect.kl \
