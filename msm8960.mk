@@ -41,11 +41,13 @@ PRODUCT_PACKAGES += \
 	tinymix
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.audio.fluence.mode=endfire \
-    persist.audio.handset.mic=analog \
-    persist.audio.lowlatency.rec=false \
-    ro.qc.sdk.audio.fluencetype=none \
-    lpa.decode=true
+    audio.offload.disable=1 \
+    mm.enable.smoothstreaming=true \
+    persist.audio.fluence.voicecall=true \
+    persist.audio.fluence.voicerec=false \
+    persist.audio.fluence.speaker=true \
+    qcom.hw.aac.encoder=true \
+    ro.qc.sdk.audio.fluencetype=fluence
 
 # Voice processing
 PRODUCT_PACKAGES += \
@@ -227,10 +229,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	wifi.interface=wlan0 \
 	wifi.supplicant_scan_interval=15
 
-# Enable AAC 5.1 output
-PRODUCT_PROPERTY_OVERRIDES += \
-    media.aac_51_output_enabled=true
-
 PRODUCT_PROPERTY_OVERRIDES += \
 	debug.egl.recordable.rgba8888=1
 
@@ -259,4 +257,3 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/recovery/twrp.fstab:recovery/root/etc/twrp.fstab \
 ###############################################################################
 $(call inherit-product, hardware/qcom/msm8960/msm8960.mk)
-
