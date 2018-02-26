@@ -177,5 +177,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/fetch-swv:system/bin/fetch-swv
 
-PRODUCT_COPY_FILES += $(LOCAL_PATH)/recovery/twrp.fstab:recovery/root/etc/twrp.fstab
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/recovery/twrp.fstab:recovery/root/etc/twrp.fstab \
+
 $(call inherit-product, hardware/qcom/msm8960/msm8960.mk)

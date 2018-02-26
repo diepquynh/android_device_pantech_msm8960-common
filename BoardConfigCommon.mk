@@ -60,7 +60,7 @@ WPA_SUPPLICANT_VERSION := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER := NL80211
 BOARD_HOSTAPD_DRIVER := NL80211
 
-BOARD_EGL_CFG := device/pantech/apq8064-common/egl.cfg
+BOARD_EGL_CFG := device/pantech/msm8960-common/egl.cfg
 
 #BOARD_USES_HGL := true
 #BOARD_USES_OVERLAY := true
