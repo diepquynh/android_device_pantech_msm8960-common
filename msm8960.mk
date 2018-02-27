@@ -38,11 +38,6 @@ PRODUCT_PACKAGES += \
 	librs_jni
 
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/init.recovery.qcom.rc:root/init.recovery.qcom.rc \
-	$(LOCAL_PATH)/init.pantech.usb.sh:root/init.pantech.usb.sh \
-	$(LOCAL_PATH)/init.pantech.usb.rc:root/init.pantech.usb.rc
-
-PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf
 
 PRODUCT_COPY_FILES += \
@@ -60,8 +55,11 @@ PRODUCT_COPY_FILES += \
 # Root files
 PRODUCT_PACKAGES += \
 	fstab.qcom \
+	init.pantech.usb.rc \
+	init.pantech.usb.sh \
 	init.qcom.rc \
 	init.qcom.sh \
+	init.recovery.qcom.rc \
 	init.target.rc \
 	ueventd.qcom.rc
 
