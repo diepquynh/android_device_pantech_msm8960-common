@@ -21,7 +21,6 @@
 
 DEVICE_PACKAGE_OVERLAYS := $(LOCAL_PATH)/overlay
 
-
 PRODUCT_PACKAGES += \
 	charger_res_images \
 	charger \
@@ -33,15 +32,15 @@ PRODUCT_PACKAGES += \
 
 # Live Wallpapers
 PRODUCT_PACKAGES += \
-        LiveWallpapers \
-        LiveWallpapersPicker \
-        VisualizationWallpapers \
-        librs_jni
+	LiveWallpapers \
+	LiveWallpapersPicker \
+	VisualizationWallpapers \
+	librs_jni
 
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/init.recovery.qcom.rc:root/init.recovery.qcom.rc \
 	$(LOCAL_PATH)/init.pantech.usb.sh:root/init.pantech.usb.sh \
-        $(LOCAL_PATH)/init.pantech.usb.rc:root/init.pantech.usb.rc
+	$(LOCAL_PATH)/init.pantech.usb.rc:root/init.pantech.usb.rc
 
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf
@@ -57,6 +56,14 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/kickstart_checker.sh:system/etc/kickstart_checker.sh
+
+# Root files
+PRODUCT_PACKAGES += \
+	fstab.qcom \
+	init.qcom.rc \
+	init.qcom.sh \
+	init.target.rc \
+	ueventd.qcom.rc
 
 # Prebuilt kl and kcm keymaps
 PRODUCT_COPY_FILES += \
@@ -138,7 +145,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/audio_effects.conf:system/vendor/etc/audio_effects.conf
 
 PRODUCT_PACKAGES += \
-        libmm-omxcore \
+	libmm-omxcore \
 	libdivxdrmdecrypt \
 	libOmxVdec \
 	libOmxVenc \
@@ -161,7 +168,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     media.aac_51_output_enabled=true
 
 PRODUCT_PROPERTY_OVERRIDES += \
-        debug.egl.recordable.rgba8888=1
+	debug.egl.recordable.rgba8888=1
 
 ADDITIONAL_BUILD_PROPERTIES += \
 	persist.sys.dalvik.multithread=true
