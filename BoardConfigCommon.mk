@@ -62,6 +62,11 @@ USE_DEVICE_SPECIFIC_CAMERA := true
 # CM PowerHAL
 #TARGET_USES_CM_POWERHAL := true
 
+# Enable dex-preoptimization to speed up the first boot sequence
+WITH_DEXPREOPT := true
+WITH_DEXPREOPT_PIC := true
+WITH_DEXPREOPT_COMP := false
+
 # Wifi
 BOARD_HAS_QCOM_WLAN := true
 BOARD_WLAN_DEVICE := qcwcn
