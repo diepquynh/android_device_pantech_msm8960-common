@@ -92,7 +92,10 @@ PRODUCT_PACKAGES += \
 	wcnss_service \
 	hostapd_default.conf \
 	wpa_supplicant_overlay.conf \
-	p2p_supplicant_overlay.conf
+	p2p_supplicant_overlay.conf \
+	WCNSS_qcom_cfg.ini \
+	WCNSS_qcom_wlan_nv.bin \
+	WCNSS_cfg.dat
 
 # Bluetooth
 PRODUCT_PACKAGES += \
@@ -162,6 +165,10 @@ PRODUCT_COPY_FILES += \
 # GPS configuration
 PRODUCT_PACKAGES += \
 	gps.conf
+
+# Thermal
+PRODUCT_PACKAGES += \
+	thermald.conf
 
 # EGL
 PRODUCT_PROPERTY_OVERRIDES += \
