@@ -23,12 +23,9 @@
 # *not* include it on all devices, so it is safe even with hardware-specific
 # components.
 
-# Support the plain, High-Res Cam, and Full HD variants
-ifneq ($(filter qcom msm8960,$(TARGET_BOOTLOADER_BOARD_NAME)),)
-
 LOCAL_PATH := $(call my-dir)
 
-include $(call first-makefiles-under,$(LOCAL_PATH))
-
+ifneq ($(filter msm8960,$(TARGET_BOARD_PLATFORM)),)
+include $(call all-subdir-makefiles,$(LOCAL_PATH))
 endif
 
