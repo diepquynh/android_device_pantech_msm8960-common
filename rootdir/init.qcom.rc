@@ -26,9 +26,11 @@
 #
 
 import init.pantech.usb.rc
-import init.target.rc
 
 on early-init
+    mkdir /firmware 0771 system system
+    symlink /data/tombstones /tombstones
+    mount debugfs debugfs /sys/kernel/debug
     write /sys/block/mmcblk0/queue/scheduler noop
 
 on init
@@ -74,7 +76,59 @@ on init
 # can start monitoring.
     mkdir /dev/bus 0755 root root
     mkdir /dev/bus/usb 0755 root root
+
+on fs
+    mount_all fstab.qcom
     
+    wait /dev/block/platform/msm_sdcc.1/by-name/modem
+    mount vfat /dev/block/platform/msm_sdcc.1/by-name/modem /firmware ro shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337
+
+	#log partition by mmcblk_utils
+	wait /dev/block/platform/msm_sdcc.1/by-name/log
+	exec /system/bin/mmcblk_utils fat /dev/block/platform/msm_sdcc.1/by-name/log
+
+on post-fs-data
+	mkdir /data/tombstones 0771 system system
+	mkdir /tombstones/modem 0771 system system
+	mkdir /tombstones/lpass 0771 system system
+	mkdir /tombstones/wcnss 0771 system system
+	mkdir /tombstones/dsps 0771 system system
+	mkdir /tombstones/mdm 0771 system system
+	mkdir /tombstones/mdm2 0771 system system
+	# LS1-JHM modified : check the version of selinux's policy
+	exec /system/bin/sh /init.pantech.sepolicy.sh ${selinux.pan_sepolicy_ver}
+
+#start camera server as daemon
+service qcamerasvr /system/bin/mm-qcamera-daemon
+	class late_start
+	user camera
+	group camera system inet input graphics net_bt_stack
+
+service kickstart /system/bin/qcks -i /firmware/image/
+	oneshot
+	disabled
+
+service qrngd /system/bin/qrngd -f
+	class main
+	user root
+	group root
+
+service qseecomd /system/bin/qseecomd
+	class late_start
+	user system
+	group system
+
+# Start kickstart if mdm is detected
+on property:ro.baseband=mdm
+	mkdir /data/qcks 0770 system system
+	start kickstart
+
+service wcnss-service /system/bin/wcnss_service
+    class main #for data encryption late_start 
+    user system
+    group system wifi
+    oneshot
+
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
@@ -83,11 +137,14 @@ on early-boot
     #setprop qcom.audio.init complete
 
 on boot
+    write /sys/devices/i2c-3/3-0024/cyttsp_update_fw 1
+    write /sys/devices/i2c-3/3-005b/update_fw 1
+    start qcamerasvr
 # basic network init
 #    ifup lo
 #    hostname localhost
 #    domainname localdomain
-    
+   
     setprop persist.sys.usb.config "cdrom,mtp,diag,diag_mdm,serial_hsic,obex,adb"
    
 
@@ -411,12 +468,6 @@ on post-fs-data
     chown radio radio /dev/cpmgr
 # end cpmgr
 
-# <-- FEATURE_DS_WIFI_LGU_MWLAN - 2012-10-16, @PS4, Kyeongyeon Song
-    chmod 0644 /system/lib/modules/mwlan_aarp.ko
-    chmod 0644 /system/lib/modules/ipsecdrvtl.ko
-    insmod /system/lib/modules/mwlan_aarp.ko
-# --> FEATURE_DS_WIFI_LGU_MWLAN
-
     chown system system /sys/class/android_usb/android0/f_mass_storage/lun0/file
     chmod 0666 /sys/class/android_usb/android0/f_mass_storage/lun0/file
     chown system system /sys/class/android_usb/android0/f_mass_storage/lun1/file
@@ -595,24 +646,6 @@ on property:ro.use_data_netmgrd=false
 on property:ro.data.large_tcp_window_size=true
     write /proc/sys/net/ipv4/tcp_adv_win_scale  1
 
-service amp_init /system/bin/amploader -i
-    class late_start
-    user root
-    disabled
-    oneshot
-
-service amp_load /system/bin/amploader -l 7000
-    class late_start
-    user root
-    disabled
-    oneshot
-
-service amp_unload /system/bin/amploader -u
-    class late_start
-    user root
-    disabled
-    oneshot
-
 service wpa_supplicant /system/bin/wpa_supplicant \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
     -I/system/etc/wifi/wpa_supplicant_overlay.conf \
@@ -689,48 +722,6 @@ service dhcpcd_bnep4 /system/bin/dhcpcd -BKLG
     disabled
     oneshot
 
-service gpsone_daemon /system/bin/gpsone_daemon
-    class late_start
-    user gps
-    group gps qcom_oncrpc inet net_raw
-    disabled
-
-service quipc_igsn /system/bin/quipc_igsn
-    class late_start
-    user gps
-    group inet gps
-    disabled
-
-service quipc_main /system/bin/quipc_main
-    class late_start
-    user gps
-    group gps net_admin wifi inet
-    disabled
-
-service location_mq /system/bin/location-mq
-    class late_start
-    user gps
-    group gps
-    disabled
-
-service xtwifi_inet /system/bin/xtwifi-inet-agent
-    class late_start
-    user gps
-    group inet gps
-    disabled
-
-service xtwifi_client /system/bin/xtwifi-client
-    class late_start
-    user gps
-    group net_admin wifi inet gps
-    disabled
-
-service lowi-server /system/bin/lowi-server
-    class late_start
-    user gps
-    group gps net_admin wifi inet
-    disabled
-
 service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
     class late_start
     user root
@@ -738,39 +729,11 @@ service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
     disabled
     oneshot
 
-on property:crypto.driver.load=1
-     insmod /system/lib/modules/qce.ko
-     insmod /system/lib/modules/qcedev.ko
-
-on property:crypto.driver.load=0
-     exec /system/bin/rmmod qcedev.ko
-     exec /system/bin/rmmod qce.ko
-
-service drmdiag /system/bin/drmdiagapp
-    class late_start
-     user root
-     disabled
-     oneshot
-
-on property:drmdiag.load=1
-    start drmdiag
-
-on property:drmdiag.load=0
-    stop drmdiag
-
-# pantech server
-service pantech_server /system/bin/pantech_server
-    class main
-    socket skytest stream 666
-    socket pantech_debug_sock stream 666
-    socket pantech_pm_sock stream 666
-    user root
-    
 service qcom-sh /system/bin/sh /init.qcom.sh
     class late_start
     user root
     oneshot
-    
+
 service qcom-post-boot /system/bin/sh /system/etc/init.qcom.post_boot.sh
     class late_start
     user root
@@ -781,23 +744,6 @@ on property:sys.boot_completed=1
     start qcom-post-boot
     start preinstall
     write /sys/block/mmcblk0/queue/scheduler row
-
-service atfwd /system/bin/ATFWD-daemon
-    class late_start
-    user system
-    group system radio
-    onrestart /system/bin/log -t RIL-ATFWD -p w "ATFWD daemon restarted"
-
-service hdmid /system/bin/hdmid
-    class late_start
-    socket hdmid stream 0660 root system graphics
-    disabled
-
-service ppd /system/bin/mm-pp-daemon
-    class late_start
-    user system
-    socket pps stream 0660 system system graphics
-    group system graphics
 
 service hostapd /system/bin/hostapd -dddd /data/hostapd/hostapd.conf
     class late_start
@@ -815,36 +761,9 @@ service ds_fmc_appd /system/bin/ds_fmc_appd -p "rmnet0" -D
 on property:persist.data.ds_fmc_app.mode=1
     start ds_fmc_appd
 
-service ims_regmanager /system/bin/exe-ims-regmanagerprocessnative
-    class late_start
-    group qcom_oncrpc net_bt_admin inet radio wifi
-    disabled
-
-on property:persist.ims.regmanager.mode=1
-    start ims_regmanager
-
 on property:ro.data.large_tcp_window_size=true
     # Adjust socket buffer to enlarge TCP receive window for high bandwidth (e.g. DO-RevB)
     write /proc/sys/net/ipv4/tcp_adv_win_scale  1
-
-service battery_monitor /system/bin/battery_monitor
-    user system
-    group system
-    disabled
-
-service ril-daemon1 /system/bin/rild -c 1
-    class main
-    socket rild1 stream 660 root radio
-    socket rild-debug1 stream 660 radio system
-    user root
-    disabled
-    group radio cache inet misc audio sdcard_r sdcard_rw qcom_oncrpc diag qcom_diag log
-
-service profiler_daemon /system/bin/profiler_daemon
-    class late_start
-    user root
-    group root
-    disabled
 
 # virtual sdcard daemon running as media_rw (1023) 
 service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
@@ -865,11 +784,6 @@ on property:init.svc.sdcard=running
 
 service charger /charger
     class charger
-
-service ssr_diag /system/bin/ssr_diag
-    class late_start
-    user system
-    group system
 
 #Disable boot timeout for external modems.
 on property:persist.sys.mdm.timeout_disable=1
@@ -902,48 +816,3 @@ service diag_mdlog_stop /system/bin/diag_mdlog -k
     group system qcom_diag sdcard_rw sdcard_r media_rw
     disabled
     oneshot
-#20140124 LS4_WIFI Warfs WiFi Porting KiKat
-# FEATURE_PANTECH_WLAN_DEBUG_LEVEL_FRAMEWORK 20121022 thkim_wifi add for wifi log --> 
-service pan_log /system/bin/pan_log
-    class late_start
-    user root
-    group system
-    disabled
-    oneshot
-# FEATURE_PANTECH_WLAN_DEBUG_LEVEL_FRAMEWORK 20121022 thkim_wifi add for wifi log <--  
-# FEATURE_PANTECH_WLAN, 20111018 thkim_wifi add for wifi ftm mode --> 
-# Pantech only, 2012-04-02, ymlee_p11019, On Auto test mode, 5G DPD enabled, added "oneshot" ++++
-service ftm_ptt /system/bin/ftm_ptt -d
-    class late_start #FEATURE_SKY_DATA_ENCRYPTION 
-    user root
-    group radio
-    disabled
-    oneshot
-
-on property:ftm_ptt_start=1
-    start ftm_ptt
-
-on property:ftm_ptt_start=0
-    stop ftm_ptt
-# FEATURE_PANTECH_WLAN, 20111018 thkim_wifi add for wifi ftm mode <--
-# [FEATURE_LGU_CP_UICC_SUPPORT_NFC]
-service skypd /system/bin/skypd
-   class main
-   user system
-   group radio system shell
-   
-
-
-
-# Setting default property , LS5 p13120
-service usb_manager /system/bin/usb_manager
-	class main
-	user root    
-	oneshot
-	
-service conn_init /system/bin/logwrapper /system/bin/conn_init
-    class late_start
-    user root
-    group system wifi radio root
-    oneshot
-

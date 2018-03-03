@@ -37,7 +37,8 @@ PRODUCT_PACKAGES += \
 	audio.r_submix.default \
 	libaudio-resampler \
 	audio_effects.conf \
-	audio_policy.conf
+	audio_policy.conf \
+	mixer_paths.xml
 
 # Voice processing
 PRODUCT_PACKAGES += \
@@ -77,8 +78,6 @@ PRODUCT_PACKAGES += \
 
 # Camera
 PRODUCT_PACKAGES += \
-	libmmcamera_interface2 \
-	libmmcamera_interface \
 	libxml2	
 
 # WiFi
@@ -118,12 +117,9 @@ PRODUCT_PACKAGES += \
 	init.qcom.bt.sh \
 	init.qcom.efs.sync.sh \
 	init.qcom.fm.sh \
-	init.qcom.mdm_links.sh \
-	init.qcom.modem_links.sh \
 	init.qcom.post_boot.sh \
 	init.recovery.qcom.rc \
-	init.target.rc \
-	ueventd.qcom.rc \
+	ueventd.qcom.rc
 
 # Charger
 PRODUCT_PACKAGES += \
@@ -165,10 +161,6 @@ PRODUCT_COPY_FILES += \
 # GPS configuration
 PRODUCT_PACKAGES += \
 	gps.conf
-
-# Thermal
-PRODUCT_PACKAGES += \
-	thermald.conf
 
 # EGL
 PRODUCT_PROPERTY_OVERRIDES += \
