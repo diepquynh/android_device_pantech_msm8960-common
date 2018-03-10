@@ -128,5 +128,5 @@ TARGET_NO_RADIOIMAGE := true
 include device/qcom/sepolicy/sepolicy.mk
 
 # Common msm8960 policies
-BOARD_SEPOLICY_DIRS += \
-	device/pantech/msm8960-common/sepolicy
+#BOARD_SEPOLICY_DIRS += \
+#	device/pantech/msm8960-common/sepolicy
