@@ -36,9 +36,16 @@ PRODUCT_PACKAGES += \
 	audio.usb.default \
 	audio.r_submix.default \
 	libaudio-resampler \
-	audio_effects.conf \
+	audio_effects_vendor.conf \
 	audio_policy.conf \
+	audio_platform_info.xml \
 	mixer_paths.xml
+
+PRODUCT_PROPERTY_OVERRIDES += \
+	persist.audio.fluence.voicecall=true \
+	persist.audio.fluence.voicerec=false \
+	persist.audio.fluence.speaker=true \
+	ro.qc.sdk.audio.fluencetype=none
 
 # Voice processing
 PRODUCT_PACKAGES += \
