@@ -179,17 +179,13 @@ PRODUCT_PACKAGES += qrngd
 
 # RIL
 ###############################################################################
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-	rild.libpath=/system/lib/libril-qc-qmi-1.so
-
 # Do not power down SIM card when modem is sent to Low Power Mode.
 PRODUCT_PROPERTY_OVERRIDES += \
 	persist.radio.apm_sim_not_pwdn=1
 
 # Our RIL class
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.telephony.ril_class=VegaRIL \
-	ro.ril.telephony.mqanelements=5
+	ro.telephony.ril_class=VegaRIL
 
 # Ril sends only one RIL_UNSOL_CALL_RING, so set call_ring.multiple to false
 PRODUCT_PROPERTY_OVERRIDES += \
