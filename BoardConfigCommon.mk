@@ -84,6 +84,7 @@ WIFI_DRIVER_FW_PATH_AP := "ap"
 # RIL
 TARGET_RIL_VARIANT := caf
 BOARD_RIL_CLASS := ../../../device/pantech/msm8960-common/ril
+TARGET_SYSTEM_PROP := device/pantech/msm8960-common/system.prop
 
 # Graphics
 BOARD_EGL_CFG := device/pantech/msm8960-common/configs/egl/egl.cfg
