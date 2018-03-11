@@ -88,13 +88,12 @@ TARGET_SYSTEM_PROP := device/pantech/msm8960-common/system.prop
 
 # Graphics
 BOARD_EGL_CFG := device/pantech/msm8960-common/configs/egl/egl.cfg
-# BOARD_USES_HGL := true
-# BOARD_USES_OVERLAY := true
-USE_OPENGL_RENDERER := true
 TARGET_USES_ION := true
-TARGET_USES_OVERLAY := true
-TARGET_USES_SF_BYPASS := true
-TARGET_USES_C2D_COMPOSITION := false
+TARGET_USES_C2D_COMPOSITION := true
+TARGET_DISPLAY_USE_RETIRE_FENCE := true
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
+OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
+HAVE_ADRENO_SOURCE := false
 
 # Media
 TARGET_NO_ADAPTIVE_PLAYBACK := true
