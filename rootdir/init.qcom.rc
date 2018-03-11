@@ -770,3 +770,11 @@ service diag_mdlog_stop /system/bin/diag_mdlog -k
     group system qcom_diag sdcard_rw sdcard_r media_rw
     disabled
     oneshot
+
+service bb_version /system/bin/fetch-swv
+    class late_start
+	disabled
+	oneshot
+
+on property:gsm.version.baseband=unknown
+	start bb_version
