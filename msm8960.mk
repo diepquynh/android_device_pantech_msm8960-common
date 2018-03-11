@@ -251,7 +251,11 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
 PRODUCT_PACKAGES += \
 	fetch-swv
 
+# System properties
+-include $(LOCAL_PATH)/system_prop.mk
+
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/recovery/twrp.fstab:recovery/root/etc/twrp.fstab \
 ###############################################################################
 $(call inherit-product, hardware/qcom/msm8960/msm8960.mk)
+
