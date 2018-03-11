@@ -30,7 +30,6 @@ PRODUCT_PACKAGES += \
 
 # Audio
 PRODUCT_PACKAGES += \
-	audio_policy.msm8960 \
 	audio.primary.msm8960 \
 	audio.a2dp.default \
 	audio.usb.default \
@@ -39,7 +38,8 @@ PRODUCT_PACKAGES += \
 	audio_effects_vendor.conf \
 	audio_policy.conf \
 	audio_platform_info.xml \
-	mixer_paths.xml
+	mixer_paths.xml \
+	tinymix
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	persist.audio.fluence.voicecall=true \
@@ -136,6 +136,10 @@ PRODUCT_PACKAGES += \
 # Lights
 PRODUCT_PACKAGES += \
 	lights.qcom
+
+# Common package
+PRODUCT_PACKAGES += \
+	libstlport
 
 # Prebuilt kl and kcm keymaps
 PRODUCT_COPY_FILES += \
