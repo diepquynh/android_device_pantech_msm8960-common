@@ -105,6 +105,9 @@ TARGET_USERIMAGES_USE_EXT4 := true
 # Recovery
 TARGET_RECOVERY_FSTAB := device/pantech/msm8960-common/rootdir/fstab.qcom
 
+# Init
+TARGET_INIT_VENDOR_LIB := libinit_sky
+
 # Qualcomm-specific features
 BOARD_USES_QCOM_HARDWARE := true
 BOARD_USES_SECURE_SERVICES := true
