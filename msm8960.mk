@@ -35,17 +35,17 @@ PRODUCT_PACKAGES += \
 	audio.usb.default \
 	audio.r_submix.default \
 	libaudio-resampler \
-	audio_effects_vendor.conf \
+	audio_effects.conf \
 	audio_policy.conf \
-	audio_platform_info.xml \
 	mixer_paths.xml \
 	tinymix
 
 PRODUCT_PROPERTY_OVERRIDES += \
-	persist.audio.fluence.voicecall=true \
-	persist.audio.fluence.voicerec=false \
-	persist.audio.fluence.speaker=true \
-	ro.qc.sdk.audio.fluencetype=none
+    persist.audio.fluence.mode=endfire \
+    persist.audio.handset.mic=analog \
+    persist.audio.lowlatency.rec=false \
+    ro.qc.sdk.audio.fluencetype=none \
+    lpa.decode=true
 
 # Voice processing
 PRODUCT_PACKAGES += \
