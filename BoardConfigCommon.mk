@@ -83,7 +83,6 @@ BOARD_RIL_CLASS := ../../../device/pantech/msm8960-common/ril
 TARGET_SYSTEM_PROP := device/pantech/msm8960-common/system.prop
 
 # Graphics
-BOARD_EGL_CFG := device/pantech/msm8960-common/configs/egl/egl.cfg
 TARGET_USES_ION := true
 TARGET_USES_C2D_COMPOSITION := true
 TARGET_DISPLAY_USE_RETIRE_FENCE := true
