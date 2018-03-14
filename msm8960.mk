@@ -139,6 +139,7 @@ PRODUCT_PACKAGES += \
 
 # Common package
 PRODUCT_PACKAGES += \
+	VegaDoze \
 	libstlport
 
 # Prebuilt kl and kcm keymaps
