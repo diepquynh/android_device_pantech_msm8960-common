@@ -103,6 +103,7 @@ TARGET_RECOVERY_FSTAB := device/pantech/msm8960-common/rootdir/fstab.qcom
 
 # Init
 TARGET_INIT_VENDOR_LIB := libinit_sky
+TARGET_UNIFIED_DEVICE := true
 
 # Qualcomm-specific features
 BOARD_USES_QCOM_HARDWARE := true
