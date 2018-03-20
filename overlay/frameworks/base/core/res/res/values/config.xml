@@ -104,50 +104,6 @@
         <item>/dev/bus/usb/001</item>
     </string-array>
 
-    <!-- Maximum number of database connections opened and managed by framework layer
-         to handle queries on each database when using Write-Ahead Logging. -->
-    <integer name="db_connection_pool_size">4</integer>
-
-    <!-- The default journal mode to use use when Write-Ahead Logging is not active.
-         Choices are: OFF, DELETE, TRUNCATE, PERSIST and MEMORY.
-         PERSIST may improve performance by reducing how often journal blocks are
-         reallocated (compared to truncation) resulting in better data block locality
-         and less churn of the storage media. -->
-    <string name="db_default_journal_mode">MEMORY</string>
-
-    <!-- The database synchronization mode when using the default journal mode.
-         FULL is safest and preserves durability at the cost of extra fsyncs.
-         NORMAL also preserves durability in non-WAL modes and uses checksums to ensure
-         integrity although there is a small chance that an error might go unnoticed.
-         Choices are: FULL, NORMAL, OFF. -->
-    <string name="db_default_sync_mode">NORMAL</string>
-
-    <!-- The database synchronization mode when using Write-Ahead Logging.
-         FULL is safest and preserves durability at the cost of extra fsyncs.
-         NORMAL sacrifices durability in WAL mode because syncs are only performed before
-         and after checkpoint operations.  If checkpoints are infrequent and power loss
-         occurs, then committed transactions could be lost and applications might break.
-         Choices are: FULL, NORMAL, OFF. -->
-    <string name="db_wal_sync_mode">NORMAL</string>
-
-    <!-- The Write-Ahead Log auto-checkpoint interval in database pages (typically 1 to 4KB).
-         The log is checkpointed automatically whenever it exceeds this many pages.
-         When a database is reopened, its journal mode is set back to the default
-         journal mode, which may cause a checkpoint operation to occur.  Checkpoints
-         can also happen at other times when transactions are committed.
-         The bigger the WAL file, the longer a checkpoint operation takes, so we try
-         to keep the WAL file relatively small to avoid long delays.
-         The size of the WAL file is also constrained by 'db_journal_size_limit'. -->
-    <integer name="db_wal_autocheckpoint">200</integer>
-
-    <!-- Max space (in MB) allocated to DownloadManager to store the downloaded
-         files if they are to be stored in DownloadManager's data dir,
-         which typically is /data/data/com.android.providers.downloads/files -->
-    <integer name="config_downloadDataDirSize">1000</integer>
-
-    <!-- Max number of downloads allowed to proceed concurrently -->
-    <integer name="config_MaxConcurrentDownloadsAllowed">12</integer>
-
     <!-- Whether a software navigation bar should be shown. NOTE: in the future this may be
          autodetected from the Configuration. -->
     <bool name="config_showNavigationBar">true</bool>
