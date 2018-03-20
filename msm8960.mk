@@ -148,6 +148,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	libqc-opt_shim
 
+# IRSC
+PRODUCT_PACKAGES += \
+	sec_config
+
 # Prebuilt kl and kcm keymaps
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/keylayout/hs_detect.kl:system/usr/keylayout/hs_detect.kl \
