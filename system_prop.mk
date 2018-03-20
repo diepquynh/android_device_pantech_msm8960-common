@@ -1,7 +1,5 @@
 # RIL
 PRODUCT_PROPERTY_OVERRIDES += \
-	rild.libpath=/system/lib/libril-qc-qmi-1.so \
-	rild.libargs=-d /dev/smd0 \
 	ril.subscription.types=NV,RUIM \
 	ro.ril.transmitpower=true \
 	ro.telephony.call_ring.multiple=0 \
