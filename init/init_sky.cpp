@@ -38,7 +38,7 @@ void vendor_load_properties()
     char device_buf[PROP_VALUE_MAX];
     FILE *fp = NULL;
 
-    fp = fopen("/dev/block/platform/msm_sdcc.1/by-name/aboot", "r");
+    fp = fopen("/dev/block/platform/msm_sdcc.1/by-name/rawdata", "r");
     if ( fp == NULL )
     {
         INFO("Failed to read bootloader information!!!");
@@ -46,7 +46,7 @@ void vendor_load_properties()
     }
     else
     {
-        fseek(fp, 16793, SEEK_SET);
+        fseek(fp, 0x24, SEEK_SET);
         fread(device_buf, 8, 1, fp);
         device_buf[8] = '\0';        
         fclose(fp);
